@@ -1,0 +1,27 @@
+{
+  "id": 0,
+  "sessions": [
+    {
+      "location": "Tooting",
+      "exercises": [
+        {
+          "exercise": {
+            "name": "InclineDBPress",
+            "machine": "False",
+            "major": ["FrontDelt", "SideDelt","Tricep", "Pecs"],
+            "minor": ["Forearms"]
+          },
+          "duration": {
+            "sets": 3,
+            "rep_range": {
+              "start": 8,
+              "end": 12
+            }
+          }
+        }
+      ]
+    }
+  ]
+
+
+}
