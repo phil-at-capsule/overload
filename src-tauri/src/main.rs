@@ -5,6 +5,7 @@
 
 use serde_json;
 use std::fs;
+use std::fmt::Write;
 use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -79,18 +80,26 @@ struct Period {
 
 #[tauri::command]
 fn print() -> String {
-  "print".to_string()
-}
-
-fn main() {
   let path = "../db/periods.json";
   let data = fs::read_to_string(path).expect("Unable to read file");
   let periods: Vec<Period> = serde_json::from_str(&data).expect("blah");
-  println!("{periods:?}")
-  // tauri::Builder::default()
-  //     .invoke_handler(tauri::generate_handler![
-  //       print
-  //     ])
-  //   .run(tauri::generate_context!())
-  //   .expect("error while running tauri application");
+
+  let mut period_strs = String::new();
+
+  for period in periods.into_iter() {
+    write!(&mut period_strs, "{:?}", period).unwrap()
+  }
+
+  period_strs
+}
+
+fn main() {
+  // println!("{}", print())
+
+  tauri::Builder::default()
+      .invoke_handler(tauri::generate_handler![
+        print
+      ])
+    .run(tauri::generate_context!())
+    .expect("error while running tauri application");
 }
